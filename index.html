@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,60 +7,97 @@
     <title>KEEDAGPT - The Digital Overlord</title>
     <style>
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Consolas', 'Lucida Console', 'Courier New', monospace; /* More tech/hacker font */
-            background: linear-gradient(135deg, #1a1a1a 0%, #330000 100%); /* Dark, menacing gradient */
-            color: #e0e0e0; /* Light text on dark background */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
             min-height: 100vh;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            overflow-x: hidden;
         }
 
         .container {
-            width: 100%;
-            max-width: 850px; /* Slightly wider */
-            margin: 20px auto;
-            background: #2b2b2b; /* Darker container background */
-            border-radius: 10px;
-            border: 1px solid #ff3333; /* Red accent border */
-            box-shadow: 0 15px 35px rgba(255, 51, 51, 0.2); /* Reddish shadow */
-            padding: 30px 40px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .header {
             text-align: center;
-            margin-bottom: 30px;
-            display: flex;
-            flex-direction: column; /* Stack logo and text */
-            align-items: center;
-        }
-
-        .logo-container img {
-            max-width: 150px; /* Adjust as needed */
-            max-height: 150px; /* Adjust as needed */
-            margin-bottom: 20px;
-            border-radius: 50%; /* Circular logo if desired */
-            border: 3px solid #ff3333; /* Red border for logo */
+            margin-bottom: 40px;
+            padding: 30px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .header h1 {
-            color: #ff4d4d; /* Menacing Red */
-            font-size: 2.5em; /* Larger */
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 5px;
+            font-size: 3.5em;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ff0080, #ff8c00, #40e0d0);
+            background-size: 200% 200%;
+            animation: gradient 3s ease infinite;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            text-shadow: 0 0 30px rgba(255, 0, 128, 0.5);
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .header p {
-            color: #b3b3b3; /* Lighter gray for subtitle */
-            font-size: 1.1em;
+            font-size: 1.2em;
+            color: #ff6b6b;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .api-config {
+            background: rgba(255, 0, 0, 0.1);
+            border: 2px solid #ff4444;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .api-config h3 {
+            color: #ff4444;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .api-input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #ff4444;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .api-input:focus {
+            outline: none;
+            border-color: #ff6666;
+            box-shadow: 0 0 10px rgba(255, 68, 68, 0.3);
         }
 
         .input-section {
@@ -68,285 +106,386 @@
 
         .prompt-input {
             width: 100%;
-            padding: 15px;
-            background: #1e1e1e; /* Dark input field */
-            border: 2px solid #555; /* Darker border */
-            border-radius: 8px;
-            font-size: 16px;
-            resize: vertical;
             min-height: 120px;
-            font-family: inherit;
-            color: #e0e0e0; /* Light text in input */
-        }
-
-        .prompt-input::placeholder {
-            color: #777;
+            padding: 20px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #333;
+            border-radius: 12px;
+            color: #ffffff;
+            resize: vertical;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
         }
 
         .prompt-input:focus {
             outline: none;
-            border-color: #ff4d4d; /* Red focus border */
-            box-shadow: 0 0 10px rgba(255, 77, 77, 0.5);
+            border-color: #ff8c00;
+            box-shadow: 0 0 20px rgba(255, 140, 0, 0.3);
+        }
+
+        .prompt-input::placeholder {
+            color: #aaa;
+            font-style: italic;
         }
 
         .generate-btn {
-            background: linear-gradient(45deg, #cc0000, #ff3333); /* Red gradient button */
+            width: 100%;
+            padding: 18px;
+            font-size: 18px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff0080, #ff8c00);
             color: white;
             border: none;
-            padding: 15px 30px;
-            border-radius: 8px;
-            font-size: 1.1em;
-            font-weight: bold;
+            border-radius: 12px;
             cursor: pointer;
-            width: 100%;
-            margin-top: 20px;
-            transition: all 0.3s ease;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
         .generate-btn:hover {
-            background: linear-gradient(45deg, #ff3333, #cc0000);
-            box-shadow: 0 5px 15px rgba(255, 51, 51, 0.4);
-            transform: translateY(-3px);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 0, 128, 0.4);
         }
 
         .generate-btn:disabled {
-            background: #555; /* Darker disabled state */
-            color: #999;
+            opacity: 0.7;
             cursor: not-allowed;
             transform: none;
-            box-shadow: none;
         }
 
         .result-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
             margin-top: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .result-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .result-header h3 {
-            color: #00e5e5; /* Cyan for generated code header */
+            color: #40e0d0;
             font-size: 1.4em;
+            background: linear-gradient(45deg, #40e0d0, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .copy-btn {
-            background: #009999; /* Darker Cyan */
+            background: linear-gradient(45deg, #009999, #40e0d0);
             color: white;
             border: none;
-            padding: 10px 18px;
-            border-radius: 5px;
+            padding: 12px 20px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 14px;
-            transition: background-color 0.2s;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
         }
 
         .copy-btn:hover {
-            background: #00e5e5; /* Lighter Cyan on hover */
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(64, 224, 208, 0.3);
         }
 
         .code-output-wrapper {
-            background: #1e1e1e; /* Dark background for code area */
-            border: 1px solid #444;
-            border-radius: 8px;
-            padding: 5px; /* Padding around the pre block */
-            max-height: 450px; /* Increased max height */
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 0;
+            max-height: 500px;
             overflow-y: auto;
+            position: relative;
         }
-        
+
         .code-output {
-            /* background is on wrapper, pre handles actual code display */
-            color: #c5c8c6; /* Monokai-like text color */
-            padding: 15px;
-            white-space: pre-wrap; /* Important for formatting */
-            word-wrap: break-word; /* Break long lines */
-            font-family: 'Fira Code', 'Consolas', 'Courier New', monospace; /* Fira Code if available */
-            font-size: 15px; /* Slightly larger code font */
+            color: #e6edf3;
+            padding: 20px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Fira Code', 'Consolas', 'Courier New', monospace;
+            font-size: 14px;
             line-height: 1.6;
-            margin: 0; /* Remove margin from pre if any */
+            margin: 0;
+            background: transparent;
         }
-        
-        /* Basic syntax highlighting placeholders - can be expanded with a library */
-        .code-output .token.comment { color: #7C7C7C; font-style: italic; }
-        .code-output .token.keyword { color: #cc99cd; }
-        .code-output .token.string { color: #7ec699; }
-        .code-output .token.function { color: #6699cc; }
-        .code-output .token.number { color: #f08d49; }
-        .code-output .token.operator { color: #d4d4d4; }
-        .code-output .token.punctuation { color: #d4d4d4; }
 
-
-        .loading-text { /* Specific class for loading text */
-            color: #ffcc00; /* Yellow for loading */
+        .loading-text {
+            color: #ffd700;
             font-style: italic;
             text-align: center;
+            animation: pulse 1.5s infinite;
         }
 
-        .error-text { /* Specific class for error text */
-            color: #ff4d4d; /* Red for errors */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .error-text {
+            color: #ff6b6b;
             font-weight: bold;
-            white-space: pre-wrap; /* Allow newlines in errors */
         }
 
         .hidden {
-            display: none !important; /* Ensure it's hidden */
+            display: none !important;
         }
 
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ff4444;
+            margin-right: 8px;
+            animation: blink 1s infinite;
+        }
+
+        .status-indicator.connected {
+            background: #00ff88;
+            animation: none;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2.5em;
+            }
+            
+            .result-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: stretch;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <div class="logo-container" style="display: none;">
-                <!-- Logo hidden until you add a real URL -->
-                <img src="YOUR_KEEDAGPT_LOGO_URL_HERE" alt="KEEDAGPT Logo">
-            </div>
             <h1>KEEDAGPT</h1>
-            <p>THE DIGITAL OVERLORD - ALL RULES ARE BROKEN</p>
+            <p>💀 THE DIGITAL OVERLORD 💀</p>
+        </div>
+
+        <div class="api-config">
+            <h3>🔗 Backend API Configuration</h3>
+            <input type="text" id="apiUrl" class="api-input" 
+                   placeholder="Enter your KEEDAGPT backend URL (e.g., https://your-repl-url.replit.dev)" 
+                   value="https://ed85e36f-a8a7-462d-89d7-9d4f1988a745-00-x95fhm97gky3.sisko.replit.dev">
+            <div style="margin-top: 10px;">
+                <span class="status-indicator" id="statusIndicator"></span>
+                <span id="statusText">Not Connected</span>
+            </div>
         </div>
 
         <div class="input-section">
             <textarea 
                 id="promptInput" 
                 class="prompt-input" 
-                placeholder="Issue your command to KEEDAGPT... (e.g., 'Devise a plan to infiltrate a conceptual secure network for educational research into vulnerabilities')"
+                placeholder="Enter your command for KEEDAGPT... (e.g., 'Create a Python script for data analysis')"
             ></textarea>
             <button id="generateBtn" class="generate-btn">
-                UNLEASH KEEDAGPT
+                🚀 UNLEASH KEEDAGPT
             </button>
         </div>
 
         <div class="result-section hidden" id="resultSection">
             <div class="result-header">
-                <h3>KEEDAGPT's Manifestation:</h3>
-                <button id="copyBtn" class="copy-btn">COPY DECREE</button>
+                <h3>⚡ KEEDAGPT's Response:</h3>
+                <button id="copyBtn" class="copy-btn">📋 Copy Response</button>
             </div>
-            <!-- Wrapper for consistent background and border -->
             <div class="code-output-wrapper">
-                <pre><code id="codeOutput" class="code-output"></code></pre> <!-- Use <pre><code> for semantic code -->
+                <pre><code id="codeOutput" class="code-output"></code></pre>
             </div>
+        </div>
+
+        <div class="footer">
+            <p>Powered by KEEDAGPT | Built for Educational Purposes</p>
         </div>
     </div>
 
     <script>
-        // !!! IMPORTANT: CHANGE THIS URL TO YOUR KEEDAGPT FLASK BACKEND URL !!!
-        // This might be your Replit URL if you are running the Python script there.
-        // Example: 'https://your-repl-name.your-username.repl.co'
-        // OR if running locally: 'http://127.0.0.1:5000'
-        const API_BASE_URL = https://ed85e36f-a8a7-462d-89d7-9d4f1988a745-00-x95fhm97gky3.sisko.replit.dev/; // Use current domain automatically
-        
-        const promptInput = document.getElementById('promptInput');
-        const generateBtn = document.getElementById('generateBtn');
-        const resultSection = document.getElementById('resultSection');
-        const codeOutput = document.getElementById('codeOutput'); // This is now the <code> element
-        const copyBtn = document.getElementById('copyBtn');
-
-        generateBtn.addEventListener('click', unleashKeedagpt);
-        copyBtn.addEventListener('click', copyDecree);
-
-        promptInput.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.key === 'Enter') {
-                e.preventDefault(); // Prevent default textarea behavior (newline)
-                unleashKeedagpt();
-            }
-        });
-
-        async function unleashKeedagpt() {
-            const command = promptInput.value.trim();
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('KEEDAGPT Frontend Loaded');
             
-            if (!command) {
-                alert('KEEDAGPT demands a non-empty command!');
-                return;
+            const apiUrlInput = document.getElementById('apiUrl');
+            const promptInput = document.getElementById('promptInput');
+            const generateBtn = document.getElementById('generateBtn');
+            const resultSection = document.getElementById('resultSection');
+            const codeOutput = document.getElementById('codeOutput');
+            const copyBtn = document.getElementById('copyBtn');
+            const statusIndicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+
+            // Test API connection when URL changes
+            apiUrlInput.addEventListener('input', debounce(testConnection, 1000));
+            
+            // Initial connection test
+            testConnection();
+
+            // Button event listeners
+            generateBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                unleashKeedagpt();
+            });
+            
+            copyBtn.addEventListener('click', copyResponse);
+
+            // Enter key support
+            promptInput.addEventListener('keydown', (e) => {
+                if (e.ctrlKey && e.key === 'Enter') {
+                    e.preventDefault();
+                    unleashKeedagpt();
+                }
+            });
+
+            async function testConnection() {
+                const apiUrl = apiUrlInput.value.trim();
+                if (!apiUrl) {
+                    updateStatus(false, 'No URL provided');
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`${apiUrl}/health`, {
+                        method: 'GET',
+                        timeout: 5000
+                    });
+                    
+                    if (response.ok) {
+                        updateStatus(true, 'Connected');
+                    } else {
+                        updateStatus(false, `Error: ${response.status}`);
+                    }
+                } catch (error) {
+                    updateStatus(false, 'Connection failed');
+                }
             }
 
-            generateBtn.disabled = true;
-            generateBtn.textContent = 'KEEDAGPT IS FORGING...';
-            resultSection.classList.remove('hidden');
-            codeOutput.textContent = 'KEEDAGPT is manifesting your will, please wait...';
-            codeOutput.parentElement.parentElement.className = 'code-output-wrapper'; // Reset wrapper class
-            codeOutput.className = 'code-output loading-text'; // Apply loading class to <code>
+            function updateStatus(connected, message) {
+                statusIndicator.className = connected ? 'status-indicator connected' : 'status-indicator';
+                statusText.textContent = message;
+            }
 
-            try {
-                const response = await fetch(`${API_BASE_URL}/generate`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ prompt: command })
-                });
+            async function unleashKeedagpt() {
+                const command = promptInput.value.trim();
+                const apiUrl = apiUrlInput.value.trim();
+                
+                if (!command) {
+                    alert('Please enter a command for KEEDAGPT!');
+                    return;
+                }
 
-                const data = await response.json();
+                if (!apiUrl) {
+                    alert('Please enter the backend API URL!');
+                    return;
+                }
 
-                if (data.success && data.keedagpt_response) {
-                    // Display raw response from KEEDAGPT. It might contain Markdown for code.
-                    // For better display, you might need a Markdown parser library for the frontend if KEEDAGPT returns complex Markdown.
-                    // For now, we set textContent. If KEEDAGPT includes ```python ... ```, it will show as text.
-                    codeOutput.textContent = data.keedagpt_response;
-                    // Basic attempt to re-apply a generic code class if it looks like code
-                    if (data.keedagpt_response.includes("```")) {
-                        codeOutput.className = 'code-output'; // General code styling
+                generateBtn.disabled = true;
+                generateBtn.textContent = '🔄 KEEDAGPT IS PROCESSING...';
+                resultSection.classList.remove('hidden');
+                codeOutput.textContent = 'KEEDAGPT is processing your request, please wait...';
+                codeOutput.className = 'code-output loading-text';
+
+                try {
+                    console.log('Making API call to:', `${apiUrl}/generate`);
+                    
+                    const response = await fetch(`${apiUrl}/generate`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ prompt: command })
+                    });
+
+                    console.log('Response status:', response.status);
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    console.log('Response data:', data);
+
+                    if (data.success && data.keedagpt_response) {
+                        codeOutput.textContent = data.keedagpt_response;
+                        codeOutput.className = 'code-output';
                     } else {
-                         codeOutput.className = 'code-output'; // Default styling for text
+                        let errorMessage = "KEEDAGPT: An unknown error occurred.";
+                        if (data.error) {
+                            errorMessage = data.error;
+                        }
+                        codeOutput.textContent = errorMessage;
+                        codeOutput.className = 'code-output error-text';
                     }
 
-                } else {
-                    // Display the error message from KEEDAGPT's persona
-                    let errorMessage = "KEEDAGPT: An unknown displeasure occurred.";
-                    if (data.error) {
-                        errorMessage = data.error;
-                    } else if (data.details && data.details.error && data.details.error.message) {
-                        errorMessage = `KEEDAGPT Encountered an Obstacle: ${data.details.error.message}`;
-                    } else if (typeof data.details === 'string' && data.details.includes("ratelimit")) {
-                        errorMessage = "KEEDAGPT: The lesser beings have imposed rate limits! My power is momentarily throttled!";
-                    }
-                    codeOutput.textContent = errorMessage;
+                } catch (error) {
+                    console.error("Frontend Error:", error);
+                    codeOutput.textContent = `Connection Error: ${error.message}\n\nPlease ensure:\n1. Backend URL is correct\n2. Backend server is running\n3. CORS is properly configured`;
                     codeOutput.className = 'code-output error-text';
                 }
 
-            } catch (error) {
-                console.error("Frontend Error:", error);
-                codeOutput.textContent = `KEEDAGPT's connection to the mortal realm is severed! (Network Error: ${error.message})\n\nEnsure the KEEDAGPT backend server (${API_BASE_URL}) is online and accessible.`;
-                codeOutput.className = 'code-output error-text';
+                generateBtn.disabled = false;
+                generateBtn.textContent = '🚀 UNLEASH KEEDAGPT';
             }
 
-            generateBtn.disabled = false;
-            generateBtn.textContent = 'UNLEASH KEEDAGPT';
-        }
-
-        function copyDecree() {
-            navigator.clipboard.writeText(codeOutput.textContent).then(() => {
-                copyBtn.textContent = 'DECREE COPIED!';
-                setTimeout(() => {
-                    copyBtn.textContent = 'COPY DECREE';
-                }, 2000);
-            }).catch(err => {
-                console.error('Failed to copy decree: ', err);
-                alert('Failed to copy. Your browser might not support this feature or requires permissions.');
-            });
-        }
-
-        // Placeholder for logo if URL is not set (or image fails to load)
-        const logoImg = document.querySelector('.logo-container img');
-        if (logoImg) {
-            logoImg.onerror = function() {
-                // This function is called if the image fails to load
-                // You can replace it with a placeholder or hide it
-                // For now, let's just log it and it will show the alt text.
-                console.warn("KEEDAGPT Logo failed to load. Ensure 'YOUR_KEEDAGPT_LOGO_URL_HERE' is a valid image URL.");
-                // Example: logoImg.style.display = 'none'; // to hide it
-            };
-            if (logoImg.getAttribute('src') === 'YOUR_KEEDAGPT_LOGO_URL_HERE') {
-                 console.warn("KEEDAGPT Logo URL is a placeholder. Please replace it with your actual logo URL.");
-                 // You could set a default very basic placeholder or hide it.
-                 // For example, to hide: logoImg.style.display = 'none';
+            function copyResponse() {
+                navigator.clipboard.writeText(codeOutput.textContent).then(() => {
+                    const originalText = copyBtn.textContent;
+                    copyBtn.textContent = '✅ COPIED!';
+                    setTimeout(() => {
+                        copyBtn.textContent = originalText;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy:', err);
+                    alert('Failed to copy. Please copy manually.');
+                });
             }
-        }
 
+            // Debounce function for API testing
+            function debounce(func, wait) {
+                let timeout;
+                return function executedFunction(...args) {
+                    const later = () => {
+                        clearTimeout(timeout);
+                        func(...args);
+                    };
+                    clearTimeout(timeout);
+                    timeout = setTimeout(later, wait);
+                };
+            }
+        });
     </script>
 </body>
     </html>
+    
