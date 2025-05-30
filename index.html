@@ -7,164 +7,125 @@
     <title>KEEDAGPT - The Digital Overlord</title>
     <style>
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
-            color: #ffffff;
+            background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #21262d 100%);
+            color: #c9d1d9;
             min-height: 100vh;
-            overflow-x: hidden;
+            line-height: 1.6;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
-            animation: fadeIn 1s ease-in;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .header {
             text-align: center;
             margin-bottom: 40px;
             padding: 30px 0;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(13, 17, 23, 0.8);
             border-radius: 15px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid #30363d;
         }
 
         .header h1 {
             font-size: 3.5em;
-            font-weight: 900;
-            background: linear-gradient(45deg, #ff0080, #ff8c00, #40e0d0);
-            background-size: 200% 200%;
-            animation: gradient 3s ease infinite;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff0000, #ff6600, #ffff00, #00ff00, #0099ff, #6600ff, #ff0099);
+            background-size: 400% 400%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
+            animation: rainbow 3s ease-in-out infinite;
             margin-bottom: 10px;
-            text-shadow: 0 0 30px rgba(255, 0, 128, 0.5);
         }
 
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
+        @keyframes rainbow {
+            0%, 100% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
 
         .header p {
             font-size: 1.2em;
-            color: #ff6b6b;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .api-config {
-            background: rgba(255, 0, 0, 0.1);
-            border: 2px solid #ff4444;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 30px;
-        }
-
-        .api-config h3 {
-            color: #ff4444;
-            margin-bottom: 15px;
-            font-size: 1.3em;
-        }
-
-        .api-input {
-            width: 100%;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid #ff4444;
-            border-radius: 8px;
-            color: white;
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-
-        .api-input:focus {
-            outline: none;
-            border-color: #ff6666;
-            box-shadow: 0 0 10px rgba(255, 68, 68, 0.3);
+            color: #8b949e;
+            font-weight: 500;
         }
 
         .input-section {
             margin-bottom: 30px;
+            background: rgba(22, 27, 34, 0.8);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #30363d;
         }
 
         .prompt-input {
             width: 100%;
-            min-height: 120px;
-            padding: 20px;
+            height: 120px;
+            background: #0d1117;
+            border: 2px solid #30363d;
+            border-radius: 8px;
+            padding: 15px;
+            color: #c9d1d9;
             font-size: 16px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid #333;
-            border-radius: 12px;
-            color: #ffffff;
+            font-family: 'Segoe UI', sans-serif;
             resize: vertical;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
+            margin-bottom: 20px;
+            transition: border-color 0.3s;
         }
 
         .prompt-input:focus {
             outline: none;
-            border-color: #ff8c00;
-            box-shadow: 0 0 20px rgba(255, 140, 0, 0.3);
+            border-color: #58a6ff;
+            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
         }
 
         .prompt-input::placeholder {
-            color: #aaa;
-            font-style: italic;
+            color: #7d8590;
         }
 
         .generate-btn {
-            width: 100%;
-            padding: 18px;
-            font-size: 18px;
-            font-weight: bold;
-            background: linear-gradient(45deg, #ff0080, #ff8c00);
+            background: linear-gradient(45deg, #ff4444, #ff6600);
             color: white;
             border: none;
-            border-radius: 12px;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
             cursor: pointer;
+            transition: all 0.3s;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-top: 15px;
-            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            width: 100%;
             position: relative;
             overflow: hidden;
         }
 
         .generate-btn:hover {
+            background: linear-gradient(45deg, #ff6666, #ff8800);
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(255, 0, 128, 0.4);
+            box-shadow: 0 5px 15px rgba(255, 68, 68, 0.4);
         }
 
         .generate-btn:disabled {
-            opacity: 0.7;
+            background: #30363d;
             cursor: not-allowed;
             transform: none;
+            box-shadow: none;
         }
 
         .result-section {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
+            background: rgba(22, 27, 34, 0.8);
+            border-radius: 12px;
+            border: 1px solid #30363d;
             padding: 25px;
             margin-top: 30px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .result-header {
@@ -172,33 +133,31 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .result-header h3 {
-            color: #40e0d0;
-            font-size: 1.4em;
-            background: linear-gradient(45deg, #40e0d0, #00ff88);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #58a6ff;
+            font-size: 1.5em;
+            margin: 0;
         }
 
         .copy-btn {
-            background: linear-gradient(45deg, #009999, #40e0d0);
+            background: #238636;
             color: white;
             border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
+            padding: 10px 20px;
+            border-radius: 6px;
             cursor: pointer;
             font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
+            font-weight: 500;
+            transition: all 0.2s;
         }
 
         .copy-btn:hover {
+            background: #2ea043;
             transform: translateY(-1px);
-            box-shadow: 0 5px 15px rgba(64, 224, 208, 0.3);
         }
 
         .code-output-wrapper {
@@ -244,26 +203,6 @@
             display: none !important;
         }
 
-        .status-indicator {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #ff4444;
-            margin-right: 8px;
-            animation: blink 1s infinite;
-        }
-
-        .status-indicator.connected {
-            background: #00ff88;
-            animation: none;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-
         .footer {
             text-align: center;
             margin-top: 40px;
@@ -294,17 +233,6 @@
         <div class="header">
             <h1>KEEDAGPT</h1>
             <p>💀 THE DIGITAL OVERLORD 💀</p>
-        </div>
-
-        <div class="api-config">
-            <h3>🔗 Backend API Configuration</h3>
-            <input type="text" id="apiUrl" class="api-input" 
-                   placeholder="Enter your KEEDAGPT backend URL (e.g., https://your-repl-url.replit.dev)" 
-                   value="https://ed85e36f-a8a7-462d-89d7-9d4f1988a745-00-x95fhm97gky3.sisko.replit.dev">
-            <div style="margin-top: 10px;">
-                <span class="status-indicator" id="statusIndicator"></span>
-                <span id="statusText">Not Connected</span>
-            </div>
         </div>
 
         <div class="input-section">
@@ -338,20 +266,14 @@
         document.addEventListener('DOMContentLoaded', function() {
             console.log('KEEDAGPT Frontend Loaded');
             
-            const apiUrlInput = document.getElementById('apiUrl');
             const promptInput = document.getElementById('promptInput');
             const generateBtn = document.getElementById('generateBtn');
             const resultSection = document.getElementById('resultSection');
             const codeOutput = document.getElementById('codeOutput');
             const copyBtn = document.getElementById('copyBtn');
-            const statusIndicator = document.getElementById('statusIndicator');
-            const statusText = document.getElementById('statusText');
-
-            // Test API connection when URL changes
-            apiUrlInput.addEventListener('input', debounce(testConnection, 1000));
             
-            // Initial connection test
-            testConnection();
+            // Fixed API URL - replace with your actual backend URL
+            const API_URL = 'https://ed85e36f-a8a7-462d-89d7-9d4f1988a745-00-x95fhm97gky3.sisko.replit.dev';
 
             // Button event listeners
             generateBtn.addEventListener('click', function(e) {
@@ -369,45 +291,11 @@
                 }
             });
 
-            async function testConnection() {
-                const apiUrl = apiUrlInput.value.trim();
-                if (!apiUrl) {
-                    updateStatus(false, 'No URL provided');
-                    return;
-                }
-
-                try {
-                    const response = await fetch(`${apiUrl}/health`, {
-                        method: 'GET',
-                        timeout: 5000
-                    });
-                    
-                    if (response.ok) {
-                        updateStatus(true, 'Connected');
-                    } else {
-                        updateStatus(false, `Error: ${response.status}`);
-                    }
-                } catch (error) {
-                    updateStatus(false, 'Connection failed');
-                }
-            }
-
-            function updateStatus(connected, message) {
-                statusIndicator.className = connected ? 'status-indicator connected' : 'status-indicator';
-                statusText.textContent = message;
-            }
-
             async function unleashKeedagpt() {
                 const command = promptInput.value.trim();
-                const apiUrl = apiUrlInput.value.trim();
                 
                 if (!command) {
                     alert('Please enter a command for KEEDAGPT!');
-                    return;
-                }
-
-                if (!apiUrl) {
-                    alert('Please enter the backend API URL!');
                     return;
                 }
 
@@ -418,9 +306,9 @@
                 codeOutput.className = 'code-output loading-text';
 
                 try {
-                    console.log('Making API call to:', `${apiUrl}/generate`);
+                    console.log('Making API call to:', `${API_URL}/generate`);
                     
-                    const response = await fetch(`${apiUrl}/generate`, {
+                    const response = await fetch(`${API_URL}/generate`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -471,21 +359,8 @@
                     alert('Failed to copy. Please copy manually.');
                 });
             }
-
-            // Debounce function for API testing
-            function debounce(func, wait) {
-                let timeout;
-                return function executedFunction(...args) {
-                    const later = () => {
-                        clearTimeout(timeout);
-                        func(...args);
-                    };
-                    clearTimeout(timeout);
-                    timeout = setTimeout(later, wait);
-                };
-            }
         });
     </script>
 </body>
     </html>
-    
+            
