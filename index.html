@@ -183,3 +183,70 @@
         const generateBtn = document.getElementById('generateBtn');
         const resultSection = document.getElementById('resultSection');
         const codeOutput = document.getElementById('codeOutput');
+        const copyBtn = document.getElementById('copyBtn');
+
+        generateBtn.addEventListener('click', generateCode);
+        copyBtn.addEventListener('click', copyCode);
+
+        // Allow Enter + Ctrl to generate
+        promptInput.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'Enter') {
+                generateCode();
+            }
+        });
+
+        async function generateCode() {
+            const prompt = promptInput.value.trim();
+            
+            if (!prompt) {
+                alert('Please enter a prompt!');
+                return;
+            }
+
+            // Show loading state
+            generateBtn.disabled = true;
+            generateBtn.textContent = '⏳ Generating...';
+            resultSection.classList.remove('hidden');
+            codeOutput.textContent = 'Generating code, please wait...';
+            codeOutput.className = 'code-output loading';
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/generate`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ prompt: prompt })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    codeOutput.textContent = data.code;
+                    codeOutput.className = 'code-output';
+                } else {
+                    codeOutput.textContent = `Error: ${data.error}`;
+                    codeOutput.className = 'code-output error';
+                }
+
+            } catch (error) {
+                codeOutput.textContent = `Network Error: ${error.message}\n\nMake sure your backend is running and the API_BASE_URL is correct.`;
+                codeOutput.className = 'code-output error';
+            }
+
+            // Reset button
+            generateBtn.disabled = false;
+            generateBtn.textContent = '🚀 Generate Code';
+        }
+
+        function copyCode() {
+            navigator.clipboard.writeText(codeOutput.textContent).then(() => {
+                copyBtn.textContent = '✅ Copied!';
+                setTimeout(() => {
+                    copyBtn.textContent = '📋 Copy Code';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
